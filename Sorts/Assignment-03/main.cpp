@@ -35,16 +35,25 @@ int main()
 	Insertion.insertionSort();
 	Insertion.inOrder();
 	Quick.quickSort();
+	Quick.inOrder();
 	Heap.heapSort();	
 	Merge.merge_sort(0, Merge.Count() - 1);
-	
+	Merge.inOrder();
 
-	
-	
-
-
-
-	printf("hello world \n");
+	printf("###### TEST RESULTS #### \n");
+	cout << "Insertion: "; 
+	Insertion.Result();
+	cout << endl;
+	cout << "Quick: ";
+	Quick.Result();
+	cout << endl;
+	cout << "Heap: ";
+	Heap.Result();
+	cout << endl;
+	cout << "Merge: ";
+	Merge.Result();
+	cout << endl; 
+	 
 	system("pause");
 	return 0;
 

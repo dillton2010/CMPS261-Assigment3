@@ -31,6 +31,7 @@ public:
     void merge(int p, int r);
     void merge_sort(int p, int r);
     void printArray();
+	void Result();
     void makeRandom();
 	bool ordered;
 	int Count();
