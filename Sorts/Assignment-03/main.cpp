@@ -18,30 +18,28 @@ using namespace std;
 
 int main()
 {
-	
+
 	AllSorts Insertion;
 	AllSorts Quick;
 	AllSorts Merge;
-	AllSorts Heap;
-	ifstream infile;
-	infile.open(THEFILE);
-	if (!infile) 
-	{
-		Insertion.makeRandom();
-	}
-	infile.close();
+	AllSorts Heap; 
+	 
+
+	Insertion.makeRandom();
+
+ 
 	//create an array, read from file
-	
+
 	Insertion.insertionSort();
 	Insertion.inOrder();
 	Quick.quickSort();
 	Quick.inOrder();
-	Heap.heapSort();	
+	Heap.heapSort();
 	Merge.merge_sort(0, Merge.Count() - 1);
 	Merge.inOrder();
 
 	printf("###### TEST RESULTS #### \n");
-	cout << "Insertion: "; 
+	cout << "Insertion: ";
 	Insertion.Result();
 	cout << endl;
 	cout << "Quick: ";
@@ -52,8 +50,8 @@ int main()
 	cout << endl;
 	cout << "Merge: ";
 	Merge.Result();
-	cout << endl; 
-	 
+	cout << endl;
+
 	system("pause");
 	return 0;
 

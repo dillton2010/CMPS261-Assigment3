@@ -15,7 +15,7 @@ AllSorts::AllSorts()
 	items = 0;
 	//must new the ptr before trying to 
 	//assign values to it's [] "indices"
-	list = new int[100000];
+	list = new int[1];
 	ordered = false;
 	makeArray();
 }
@@ -32,7 +32,7 @@ void AllSorts::makeRandom()
 	//Makes the random number file {
 	using namespace std;
 	const int RANGE = 100; // Values in the file will range from 1 to RANGE
-	const int HOWMANY = 100; // How many values do you want to generate?
+	const int HOWMANY = 10000; // How many values do you want to generate?
 	const int valuesPerLine = 20; // How many values to a line?
 	ofstream outFile;
 	ifstream inFile;
@@ -69,9 +69,10 @@ void AllSorts::resize()
 	delete[]temp;
 	size = newsize;
 }
+
 void AllSorts::makeArray()
 {
-	size = 100000;
+	size = 1;
 	int a = 0;
 	int k = 0;
 
@@ -214,26 +215,29 @@ void AllSorts::merge(int p, int r)
 	const int num = (r - p) + 1;
 	// Temp array
    // int temp[num];
-	int temp[5];
+	int *temp;
+	temp = new int[num];
 
-	//// Merge in sorted form the 2 arrays
-	//while ( i2 <= mid && i3 <= r )
-	//    if ( list[i2] < list[i3] )
-	//        temp[i1++] = list[i2++];
-	//    else
-	//        temp[i1++] = list[i3++];
+	// Merge in sorted form the 2 arrays
+	while ( i2 <= mid && i3 <= r )
+	    if ( list[i2] < list[i3] )
+	        temp[i1++] = list[i2++];
+	    else
+	        temp[i1++] = list[i3++];
 
-	//// Merge the remaining elements in left array
-	//while ( i2 <= mid )
-	//    temp[i1++] = list[i2++];
+	// Merge the remaining elements in left array
+	while ( i2 <= mid )
+	    temp[i1++] = list[i2++];
 
-	//// Merge the remaining elements in right array
-	//while ( i3 <= r )
-	//    temp[i1++] = list[i3++];
+	// Merge the remaining elements in right array
+	while ( i3 <= r )
+	    temp[i1++] = list[i3++];
 
-	//// Move from temp array to master array
-	//for ( int i = p; i <= r; i++ )
-	//    list[i] = temp[i-p];
+	// Move from temp array to master array
+	for ( int i = p; i <= r; i++ )
+	    list[i] = temp[i-p];
+
+	delete temp;
 }
 
 void AllSorts::merge_sort(int p, int r)
