@@ -14,28 +14,32 @@
 #include <iomanip>
 #include <string>
  
-
-class allSorts
+class AllSorts
 {
 public:
-    allSorts();
-    ~allSorts();
+	
+    AllSorts();
+    ~AllSorts(); 
     void makeArray();
     void insertionSort();
     bool inOrder();
     void resize();
     int partition(int first, int last);
+	void heapSort();
     void quickSort();
     void quickSort(int first, int last);
     void merge(int p, int r);
     void merge_sort(int p, int r);
-    void printarray();
+    void printArray();
     void makeRandom();
+	bool ordered;
+	int Count();
 private:
     int *list;
     int items;
     int compare;
     int swap;
     int size;  
+	
 };
 

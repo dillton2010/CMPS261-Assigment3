@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   main.cpp
  * Author: dillon
  *
@@ -14,23 +14,38 @@
 #include <string>
 #include "allSorts.h"
 using namespace std;
- 
+#define THEFILE "randomnumbers.data"
+
 int main()
 {
-/*
-    allSorts A;
-    A.makeRandom();
-    A.makeArray();
-    A.insertionSort();
-    A.printarray();
-    cout<<"is it in order ";
-   cout<< A.inOrder();
-   
-    */
-    
-  
+	
+	AllSorts Insertion;
+	AllSorts Quick;
+	AllSorts Merge;
+	AllSorts Heap;
+	ifstream infile;
+	infile.open(THEFILE);
+	if (!infile) 
+	{
+		Insertion.makeRandom();
+	}
+	infile.close();
+	//create an array, read from file
+	
+	Insertion.insertionSort();
+	Insertion.inOrder();
+	Quick.quickSort();
+	Heap.heapSort();	
+	Merge.merge_sort(0, Merge.Count() - 1);
+	
+
+	
+	
+
+
+
 	printf("hello world \n");
 	system("pause");
-    return 0;
- 
+	return 0;
+
 }

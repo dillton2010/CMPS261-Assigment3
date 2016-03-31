@@ -8,19 +8,26 @@
 #include "allSorts.h"
 using namespace std;
 
-allSorts::allSorts()
+AllSorts::AllSorts()
 {
     swap = 0;
     compare = 0;
     items = 0;
+	//must new the ptr before trying to 
+	//assign values to it's [] "indices"
+	list = new int[100000];
+	ordered = false;	
+	makeArray();
 }
  
-allSorts::~allSorts()
+AllSorts::~AllSorts()
 {
     delete []list;
 }
 
-void allSorts::makeRandom()
+ 
+ 
+void AllSorts::makeRandom()
 {
     //Makes the random number file {
     using namespace std;
@@ -44,7 +51,12 @@ void allSorts::makeRandom()
     outFile.close();
 }
 
-void allSorts::resize()
+int AllSorts::Count()
+{
+	return items;
+}
+
+void AllSorts::resize()
 {
     int newsize = size*2;
     int *temp  = new int[newsize];
@@ -57,43 +69,49 @@ void allSorts::resize()
    delete []temp;
    size = newsize;
 }
-void allSorts::makeArray()
+void AllSorts::makeArray()
 {
-    size = 100000;
-    int a = 0;
-    int k = 0;
- 
-    ifstream infile;
-    infile.open("randomNumbers.data");
-    while (infile)
+	size = 100000;
+	int a = 0;
+	int k = 0;
+
+	ifstream infile;
+	infile.open("randomNumbers.data");
+	while (infile >> a)
+	{
+		if (size <= items)
+			resize(); 
+
+		list[items++] = a;
+	}
+}
+
+bool AllSorts::inOrder()
+{
+    for (int i = 0; i < items;) 
     {
+		//the first number
+		int num1 = list[i];
+		//the second number
+		//increment it here because if we wait we will segfault
+		int num2 = list[i++];
+		
+		if (num1 <= num2)
+		{
+			ordered = true;
+		}
+		else
+		{
+			ordered = false;
+			break;
+		}
         
-        if(size<items )
-        {
-            resize();
-        }
-        infile >> a;
-        list[items] = a;
-        items++;
-        
-    
     }
+	
+    return ordered;
 }
  
-bool allSorts::inOrder()
-{
-    for (int i = 0; i < items; i++) 
-    {
-        if (list[i] <= list[i + 1])
-            continue;
-        else {
-            return false;
-        }
-    }
-    return true;
-}
- 
-void allSorts::insertionSort() 
+void AllSorts::insertionSort() 
 {
     swap = 0;
     compare = 0;
@@ -114,17 +132,19 @@ void allSorts::insertionSort()
             list[j] = place;
         }
     }
+
+	
     
 }
 
-void allSorts::quickSort()
+void AllSorts::quickSort()
 {
     swap = 0;
     compare = 0;
     quickSort(0, items - 1);
 }
  
-void allSorts::quickSort(int first, int last) 
+void AllSorts::quickSort(int first, int last) 
 {
     if (last > first) {
         int pivotIndex = partition(first, last);
@@ -135,7 +155,7 @@ void allSorts::quickSort(int first, int last)
     }
 }
 
-int allSorts::partition(int first, int last) 
+int AllSorts::partition(int first, int last) 
 {
     
     int pivot = list[first];
@@ -179,7 +199,11 @@ int allSorts::partition(int first, int last)
         return first;
 }
 
-void allSorts:: merge(int p, int r)
+void AllSorts::heapSort()
+{
+}
+
+void AllSorts:: merge(int p, int r)
 {
     int mid = floor((p + r) / 2);
     int i1 = 0;
@@ -210,7 +234,7 @@ void allSorts:: merge(int p, int r)
     //    list[i] = temp[i-p];
 }
 
-void allSorts:: merge_sort(int p, int r)
+void AllSorts:: merge_sort(int p, int r)
 {
     if ( p < r )
     {
@@ -221,11 +245,16 @@ void allSorts:: merge_sort(int p, int r)
     }
 }
 
-void allSorts::printarray()
+void AllSorts::printArray()
 {
+	for (int i = 0; i < items; ++i)
+	{
+		if (i % 10 == 0)
+			cout << list[i] << " "<<endl;
+		else 
+			cout << list[i] << " ";
 
-    for ( int i = 0; i < items; i++ )
-        cout << list[i] << " ";
+	}
     cout << endl;
 }
 
